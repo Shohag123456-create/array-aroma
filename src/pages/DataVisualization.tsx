@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { CardGridView } from "@/components/data-views/CardGridView";
 import { InteractiveTableView } from "@/components/data-views/InteractiveTableView";
 import { EnhancedListView } from "@/components/data-views/EnhancedListView";
@@ -45,21 +46,24 @@ const DataVisualization = () => {
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/20 to-primary/5">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 relative">
+          <div className="absolute top-0 right-0">
+            <ThemeToggle />
+          </div>
           <h1 className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
             Data Visualization Dashboard
           </h1>
           <p className="text-muted-foreground text-lg mb-4">
             Explore your data through 10 different beautiful view styles
           </p>
-          <Badge variant="secondary" className="text-sm">
+          <Badge variant="secondary" className="text-sm bg-glass backdrop-blur-glass border-glass shadow-glass">
             {mockData.length} Records Available
           </Badge>
         </div>
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid grid-cols-5 lg:grid-cols-10 gap-2 h-auto p-2 bg-card/50 backdrop-blur-sm border shadow-card mb-8">
+          <TabsList className="grid grid-cols-5 lg:grid-cols-10 gap-2 h-auto p-2 bg-glass backdrop-blur-glass border-glass shadow-glass mb-8">
             {viewTabs.map((tab) => {
               const IconComponent = tab.icon;
               return (
@@ -80,7 +84,7 @@ const DataVisualization = () => {
             const Component = tab.component;
             return (
               <TabsContent key={tab.id} value={tab.id} className="mt-0">
-                <div className="bg-card/30 backdrop-blur-sm rounded-lg border shadow-elegant p-6">
+                <div className="bg-glass backdrop-blur-glass rounded-lg border-glass shadow-glass p-6">
                   <Component data={mockData} />
                 </div>
               </TabsContent>

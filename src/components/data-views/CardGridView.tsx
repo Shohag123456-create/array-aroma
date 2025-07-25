@@ -18,7 +18,7 @@ export const CardGridView = ({ data }: CardGridViewProps) => {
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {data.map((record, index) => (
-          <Card key={index} className="group hover:shadow-elegant transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-card to-card/50 border-primary/10">
+          <Card key={index} className="group hover:shadow-glow transition-all duration-300 hover:-translate-y-1 bg-glass backdrop-blur-glass border-glass shadow-glass">
             <CardHeader className="pb-3">
               <div className="flex items-start justify-between">
                 <div className="space-y-1">

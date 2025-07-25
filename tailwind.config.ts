@@ -78,7 +78,17 @@ export default {
 			boxShadow: {
 				'elegant': 'var(--shadow-elegant)',
 				'card': 'var(--shadow-card)',
-				'glow': 'var(--shadow-glow)'
+				'glow': 'var(--shadow-glow)',
+				'glass': 'var(--glass-shadow)'
+			},
+			backdropBlur: {
+				'glass': 'var(--glass-backdrop)'
+			},
+			backgroundColor: {
+				'glass': 'var(--glass-background)'
+			},
+			borderColor: {
+				'glass': 'var(--glass-border)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
