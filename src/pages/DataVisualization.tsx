@@ -12,6 +12,8 @@ import { InfiniteScrollFeedView } from "@/components/data-views/InfiniteScrollFe
 import { DashboardWidgetsView } from "@/components/data-views/DashboardWidgetsView";
 import { GalleryView } from "@/components/data-views/GalleryView";
 import { AccordionListsView } from "@/components/data-views/AccordionListsView";
+import { PieChartView } from "@/components/data-views/PieChartView";
+import { BarChartView } from "@/components/data-views/BarChartView";
 import { mockData } from "@/data/mockData";
 import { 
   Grid, 
@@ -23,7 +25,9 @@ import {
   Infinity, 
   BarChart3, 
   ImageIcon, 
-  ChevronDown 
+  ChevronDown,
+  PieChart,
+  TrendingUp
 } from "lucide-react";
 
 const viewTabs = [
@@ -37,6 +41,8 @@ const viewTabs = [
   { id: "dashboard", label: "Dashboard", icon: BarChart3, component: DashboardWidgetsView },
   { id: "gallery", label: "Gallery View", icon: ImageIcon, component: GalleryView },
   { id: "accordion", label: "Accordion Lists", icon: ChevronDown, component: AccordionListsView },
+  { id: "pie-chart", label: "Pie Charts", icon: PieChart, component: PieChartView },
+  { id: "bar-chart", label: "Bar Charts", icon: TrendingUp, component: BarChartView },
 ];
 
 const DataVisualization = () => {
@@ -54,7 +60,7 @@ const DataVisualization = () => {
             Data Visualization Dashboard
           </h1>
           <p className="text-muted-foreground text-lg mb-4">
-            Explore your data through 10 different beautiful view styles
+            Explore your data through 12 different beautiful view styles
           </p>
           <Badge variant="secondary" className="text-sm bg-glass backdrop-blur-glass border-glass shadow-glass">
             {mockData.length} Records Available
@@ -63,7 +69,7 @@ const DataVisualization = () => {
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid grid-cols-5 lg:grid-cols-10 gap-2 h-auto p-2 bg-glass backdrop-blur-glass border-glass shadow-glass mb-8">
+          <TabsList className="grid grid-cols-6 lg:grid-cols-12 gap-2 h-auto p-2 bg-glass backdrop-blur-glass border-glass shadow-glass mb-8">
             {viewTabs.map((tab) => {
               const IconComponent = tab.icon;
               return (
