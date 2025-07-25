@@ -17,24 +17,41 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 260 84% 65%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220 8.9% 46.1%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220 8.9% 46.1%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 260 84% 65%;
+
+    /* Data visualization colors */
+    --chart-1: 260 84% 65%;
+    --chart-2: 340 75% 55%;
+    --chart-3: 46 87% 65%;
+    --chart-4: 173 58% 39%;
+    --chart-5: 43 74% 66%;
+
+    /* Gradient definitions */
+    --gradient-primary: linear-gradient(135deg, hsl(260 84% 65%), hsl(280 100% 70%));
+    --gradient-secondary: linear-gradient(135deg, hsl(220 14.3% 95.9%), hsl(210 40% 96%));
+    --gradient-accent: linear-gradient(135deg, hsl(46 87% 65%), hsl(38 92% 50%));
+    
+    /* Shadow definitions */
+    --shadow-elegant: 0 4px 20px -4px hsl(260 84% 65% / 0.1);
+    --shadow-card: 0 2px 10px -2px hsl(220 13% 91% / 0.4);
+    --shadow-glow: 0 0 40px hsl(260 84% 65% / 0.2);
 
     --radius: 0.5rem;
 
