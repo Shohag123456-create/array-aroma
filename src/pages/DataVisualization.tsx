@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { CardGridView } from "@/components/data-views/CardGridView";
 import { InteractiveTableView } from "@/components/data-views/InteractiveTableView";
@@ -14,6 +16,7 @@ import { GalleryView } from "@/components/data-views/GalleryView";
 import { AccordionListsView } from "@/components/data-views/AccordionListsView";
 import { PieChartView } from "@/components/data-views/PieChartView";
 import { BarChartView } from "@/components/data-views/BarChartView";
+import { useSupabaseData } from "@/hooks/useSupabaseData";
 import { mockData } from "@/data/mockData";
 import { 
   Grid, 
@@ -45,8 +48,29 @@ const viewTabs = [
   { id: "bar-chart", label: "Bar Charts", icon: TrendingUp, component: BarChartView },
 ];
 
+const availableTables = [
+  { value: "mock", label: "Mock Data (Demo)" },
+  { value: "all_engagement_jcm", label: "All Engagement JCM" },
+  { value: "conf_feedbacks", label: "Conference Feedbacks" },
+  { value: "conferences", label: "Conferences" },
+  { value: "hlb-firms", label: "HLB Firms" },
+  { value: "impact_matrix", label: "Impact Matrix" },
+  { value: "success_new_refs_rec", label: "Success New Refs (Received)" },
+  { value: "success_new_refs_refs", label: "Success New Refs (Referrals)" },
+  { value: "turnover_refarrals_2023", label: "Turnover Referrals 2023" },
+  { value: "group_membership_by_firm", label: "Group Membership by Firm" },
+];
+
 const DataVisualization = () => {
   const [activeTab, setActiveTab] = useState("card-grid");
+  const [selectedTable, setSelectedTable] = useState("mock");
+  
+  const { data: supabaseData, loading, error, pagination, goToPage } = useSupabaseData(
+    selectedTable === "mock" ? "" : selectedTable,
+    50
+  );
+  
+  const currentData = selectedTable === "mock" ? mockData : supabaseData;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/20 to-primary/5">
@@ -62,9 +86,41 @@ const DataVisualization = () => {
           <p className="text-muted-foreground text-lg mb-4">
             Explore your data through 12 different beautiful view styles
           </p>
-          <Badge variant="secondary" className="text-sm bg-glass backdrop-blur-glass border-glass shadow-glass">
-            {mockData.length} Records Available
-          </Badge>
+          
+          {/* Table Selection */}
+          <div className="flex flex-col items-center gap-4 mb-4">
+            <div className="flex items-center gap-4">
+              <Select value={selectedTable} onValueChange={setSelectedTable}>
+                <SelectTrigger className="w-[280px] bg-glass backdrop-blur-glass border-glass">
+                  <SelectValue placeholder="Select a data table" />
+                </SelectTrigger>
+                <SelectContent>
+                  {availableTables.map((table) => (
+                    <SelectItem key={table.value} value={table.value}>
+                      {table.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="flex items-center gap-2">
+              <Badge variant="secondary" className="text-sm bg-glass backdrop-blur-glass border-glass shadow-glass">
+                {loading ? "Loading..." : `${currentData.length} Records Available`}
+              </Badge>
+              {selectedTable !== "mock" && pagination && (
+                <Badge variant="outline" className="text-sm">
+                  Page {pagination.currentPage} of {pagination.totalPages}
+                </Badge>
+              )}
+            </div>
+            
+            {error && (
+              <Card className="p-4 border-destructive bg-destructive/10">
+                <p className="text-destructive text-sm">Error loading data: {error}</p>
+              </Card>
+            )}
+          </div>
         </div>
 
         {/* Tabs */}
@@ -91,7 +147,17 @@ const DataVisualization = () => {
             return (
               <TabsContent key={tab.id} value={tab.id} className="mt-0">
                 <div className="bg-glass backdrop-blur-glass rounded-lg border-glass shadow-glass p-6">
-                  <Component data={mockData} />
+                  {loading ? (
+                    <div className="flex items-center justify-center py-12">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                    </div>
+                  ) : (
+                    <Component 
+                      data={currentData} 
+                      pagination={selectedTable !== "mock" ? pagination : undefined}
+                      onPageChange={selectedTable !== "mock" ? goToPage : undefined}
+                    />
+                  )}
                 </div>
               </TabsContent>
             );
